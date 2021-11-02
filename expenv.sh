@@ -29,7 +29,7 @@ fi
 
 # Eval each line and redirect to tmpFile if set, otherwise to process stdout
 sed 's/"/\\"/g' "${useFile:-/proc/${$}/fd/0}" |
-  while IFS='' read -r line; do
+  while IFS='' read -r line || [ -n "$line" ]; do
     eval "echo \"$line\""
   done > "${tmpFile:-/proc/${$}/fd/1}"
 
